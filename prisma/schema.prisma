@@ -1,0 +1,21 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+
+  extensions = [postgis]
+}
+
+model Partner {
+  id           Int    @id @default(autoincrement())
+  tradingName  String @db.VarChar(100)
+  ownerName    String @db.VarChar(100)
+  document     String @unique @db.VarChar(20)
+  coverageArea Json
+  address      Json
+}
